@@ -55,4 +55,4 @@ def clean(input_path: str, output_path: str):
 
 if __name__ == "__main__":
     # concatenate("optimization_samples", "concatenated_csvs")
-    clean("concatenated_csvs", "cleaned_csvs")
+    #clean("concatenated_csvs", "cleaned_csvs")
