@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 
-def pre_process_data(input_path: str, output_path: str):
+def concatenate(input_path: str, output_path: str):
     os.makedirs(output_path, exist_ok=True)
 
     scan_no = [16, 24, 32, 48, 64, 72]
@@ -37,5 +37,22 @@ def pre_process_data(input_path: str, output_path: str):
         concatenated_data.to_csv(f"{output_path}/{no}_scans.csv", index=False)
 
 
+def clean(input_path: str, output_path: str):
+    os.makedirs(output_path, exist_ok=True)
+    scan_no = [16, 24, 32, 48, 64, 72]
+    df_path = glob.glob(f"{input_path}/*_scans.csv")
+
+    for no, path in zip(scan_no, df_path):
+        if no == 72:
+            anomalous = "sample_11"
+        else:
+            anomalous = "sample_12"
+
+        df = pd.read_csv(path)
+        df = df.drop(columns=anomalous)
+        df.to_csv(f"{output_path}/{no}_scans.csv", index=False)
+
+
 if __name__ == "__main__":
-    pre_process_data("optimization_samples", "concatenated_csvs")
+    # concatenate("optimization_samples", "concatenated_csvs")
+    clean("concatenated_csvs", "cleaned_csvs")
