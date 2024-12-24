@@ -17,8 +17,10 @@ def mdi_compute(input_dir: str, output_path: str):
     rp = 599.51009
     i = wave_no["wave_no"]
 
+    result_df = pd.DataFrame()
+
     for key, df in scan_no_dict.items():
-        result_df = pd.DataFrame()
+
         mdi_results = []
 
         for sample in df.columns[1:]:
@@ -28,8 +30,9 @@ def mdi_compute(input_dir: str, output_path: str):
             mdi = md_rp - md_lp
             mdi_results.append(mdi)
 
-        result_df[f"{key}_mdi"] = mdi_results
-        result_df.to_csv(f"{output_path}/{key}.csv", index=False)
+        result_df[f"{key}_mdi"] = pd.Series(mdi_results)
+
+    result_df.to_csv(f"{output_path}/master_mdi.csv", index=False)
 
 
 def smdi_compute(input_dir: str, output_path: str):
@@ -54,5 +57,5 @@ def smdi_compute(input_dir: str, output_path: str):
 
 
 if __name__ == "__main__":
-    # mdi_compute("cleaned_csvs", "mdi_results")
-    smdi_compute("mdi_results", "smdi_results")
+    mdi_compute("cleaned_csvs", "mdi_results")
+    # smdi_compute("mdi_results", "smdi_results")
