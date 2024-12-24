@@ -51,8 +51,10 @@ def smdi_compute(input_dir: str, output_path: str):
     global_max = scan_n_max.max()
     global_min = scan_n_min.min()
 
+    mdi_range = global_max - global_min
+
     for col in master_mdi.columns:
-        smdi = (master_mdi[col] - global_min) / (global_max - global_min)
+        smdi = (master_mdi[col] - global_min) / (mdi_range)
         result_df[col] = pd.Series(smdi)
 
     result_df.to_csv(f"{output_path}/master_smdi.csv", index=False)
@@ -60,4 +62,4 @@ def smdi_compute(input_dir: str, output_path: str):
 
 if __name__ == "__main__":
     # mdi_compute("cleaned_csvs", "mdi_results")
-    smdi_compute("mdi_results", "smdi_results")
+    # smdi_compute("mdi_results", "smdi_results")
