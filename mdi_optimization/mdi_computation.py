@@ -39,23 +39,25 @@ def smdi_compute(input_dir: str, output_path: str):
     os.makedirs(output_path, exist_ok=True)
 
     # Loading Data
-    csv_paths = glob.glob(f"{input_dir}/*_scans.csv")
-    scan_no_dict = {
-        path.split("/")[-1].replace(".csv", ""): pd.read_csv(path) for path in csv_paths
-    }
+    master_mdi_path = glob.glob(f"{input_dir}/master_mdi.csv")
+    master_mdi = pd.read_csv(master_mdi_path[0])
 
     # Computing SMDI
-    for key, df in scan_no_dict.items():
-        result_df = pd.DataFrame()
-        mdi = df.iloc[1:, 0]
-        min_mdi = min(mdi)
-        max_mdi = max(mdi)
-        smdi = (mdi - min_mdi) / (max_mdi - min_mdi)
+    result_df = pd.DataFrame()
 
-        result_df[f"{key}_smdi"] = smdi
-        result_df.to_csv(f"{output_path}/{key}.csv", index=False)
+    scan_n_max = master_mdi.max()
+    scan_n_min = master_mdi.min()
+
+    global_max = scan_n_max.max()
+    global_min = scan_n_min.min()
+
+    for col in master_mdi.columns:
+        smdi = (master_mdi[col] - global_min) / (global_max - global_min)
+        result_df[col] = pd.Series(smdi)
+
+    result_df.to_csv(f"{output_path}/master_smdi.csv", index=False)
 
 
 if __name__ == "__main__":
-    mdi_compute("cleaned_csvs", "mdi_results")
-    # smdi_compute("mdi_results", "smdi_results")
+    # mdi_compute("cleaned_csvs", "mdi_results")
+    smdi_compute("mdi_results", "smdi_results")
