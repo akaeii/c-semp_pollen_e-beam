@@ -1,16 +1,22 @@
 import glob
-import pprint
 import pandas as pd
 import os
+import re
 
 
 def concatenate(input_path: str, output_path: str):
     os.makedirs(output_path, exist_ok=True)
 
     scan_no = [16, 24, 32, 48, 64, 72]
-    scan_no_paths = {
-        i: glob.glob(f"{input_path}/*/*{i} [Ss]cans.[0-9].dpt") for i in scan_no
-    }
+    scan_no_paths = {}
+
+    for no in scan_no:
+        paths = glob.glob(f"{input_path}/*/*{no} [Ss]cans.[0-9].dpt")
+        paths = sorted(
+            paths, key=lambda x: int(re.findall(r"Pollen \d+", x)[0].split(" ")[-1])
+        )
+
+        scan_no_paths[no] = paths
 
     sample_df = pd.read_table(
         scan_no_paths[16][0], delimiter=",", names=["wave_no", "abs"]
@@ -43,10 +49,7 @@ def clean(input_path: str, output_path: str):
     df_path = glob.glob(f"{input_path}/*_scans.csv")
 
     for no, path in zip(scan_no, df_path):
-        if no == 72:
-            anomalous = "sample_11"
-        else:
-            anomalous = "sample_12"
+        anomalous = "sample_2"
 
         df = pd.read_csv(path)
         df = df.drop(columns=anomalous)
@@ -54,5 +57,5 @@ def clean(input_path: str, output_path: str):
 
 
 if __name__ == "__main__":
-    # concatenate("optimization_samples", "concatenated_csvs")
-    #clean("concatenated_csvs", "cleaned_csvs")
+    concatenate("optimization_samples", "concatenated_csvs")
+    clean("concatenated_csvs", "cleaned_csvs")
