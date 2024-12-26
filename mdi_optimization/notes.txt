@@ -1,3 +1,3 @@
 notes:
 missing data: sample 11 scan 72, sample 30 scan 32
-anomalous data: scanning no 16-64: sample 12; scanning 72: sample 11
+anomalous data: sample 2 on all scanning numbers

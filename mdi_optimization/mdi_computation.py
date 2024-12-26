@@ -61,5 +61,5 @@ def smdi_compute(input_dir: str, output_path: str):
 
 
 if __name__ == "__main__":
-    # mdi_compute("cleaned_csvs", "mdi_results")
-    # smdi_compute("mdi_results", "smdi_results")
+    mdi_compute("cleaned_csvs", "mdi_results")
+    smdi_compute("mdi_results", "smdi_results")
