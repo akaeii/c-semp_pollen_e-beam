@@ -5,12 +5,18 @@ import os
 
 def mdi_compute(input_dir: str, output_path: str):
     os.makedirs(output_path, exist_ok=True)
+
     # Loading Data
     csv_paths = glob.glob(f"{input_dir}/*_scans.csv")
-    scan_no_dict = {
-        path.split("/")[-1].replace(".csv", ""): pd.read_csv(path) for path in csv_paths
-    }
     wave_no = pd.read_csv(f"{input_dir}/wave_no.csv")
+
+    scan_no_dict = {
+        path.split("\\")[-1].replace(".csv", ""): pd.read_csv(path)
+        for path in csv_paths
+    }
+
+    for no, path in scan_no_dict.items():
+        print(no, path)
 
     # Computing MDI
     lp = 3996.73391
