@@ -24,15 +24,15 @@ def annotator(ax):
 
     # #amide 1
     ax.axvspan(1630, 1635, color="#6817c5", alpha=0.3)
-    ax.text(1650, 83, "Amide I", rotation=90, fontsize=7, fontweight="bold")
+    ax.text(1650, 83, "Amide I", rotation=90, fontsize=7)
 
     # amide 2
     ax.axvspan(1517, 1526, color="#e76f51", alpha=0.5)
-    ax.text(1541, 83, "Amide II", rotation=90, fontsize=7, fontweight="bold")
+    ax.text(1541, 83, "Amide II", rotation=90, fontsize=7)
 
     # amide 3
     ax.axvspan(1230, 1238, color="#f800a4", alpha=0.3)
-    ax.text(1253, 83, "Amide III", rotation=90, fontsize=7, fontweight="bold")
+    ax.text(1253, 83, "Amide III", rotation=90, fontsize=7)
 
 
 if __name__ == "__main__":
