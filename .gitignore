@@ -3,3 +3,4 @@ desktop.ini
 **/.ipynb_checkpoints/
 /testing_grounds
 */test.py
+*/__pycache__
