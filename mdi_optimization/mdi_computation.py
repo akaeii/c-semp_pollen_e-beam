@@ -15,9 +15,6 @@ def mdi_compute(input_dir: str, output_path: str):
         for path in csv_paths
     }
 
-    for no, path in scan_no_dict.items():
-        print(no, path)
-
     # Computing MDI
     lp = 3996.73391
     rp = 599.51009
