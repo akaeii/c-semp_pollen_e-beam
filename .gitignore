@@ -4,3 +4,4 @@ desktop.ini
 /testing_grounds
 */test.py
 */__pycache__
+**/.vscode/
