@@ -22,13 +22,17 @@ def concatenate(input_path: str, output_path: str):
         scan_no_paths[16][0], delimiter=",", names=["wave_no", "abs"]
     )
     wave_no = sample_df["wave_no"]
+    wave_no = wave_no.sort_values(ascending=True)
     wave_no.to_csv(f"{output_path}/wave_no.csv", index=False)
 
     for no, path_list in scan_no_paths.items():
+
         concatenated_data = pd.DataFrame()
 
-        for count, path in enumerate(path_list, start=1):
-            sample_name = f"sample_{count}"
+        for path in path_list:
+            sample_count = int(re.findall(r"Pollen \d+", path)[0].split(" ")[-1])
+            sample_name = f"sample_{sample_count}"
+
             data = pd.read_table(path, delimiter=",", names=["wave_no", sample_name])
 
             if concatenated_data.empty == True:
@@ -39,7 +43,7 @@ def concatenate(input_path: str, output_path: str):
                     left=concatenated_data, right=data, on="wave_no", how="outer"
                 )
 
-        # concatenated_data = concatenated_data.drop(columns=["wave_no"])
+        concatenated_data = concatenated_data.sort_values(by="wave_no", ascending=True)
         concatenated_data.to_csv(f"{output_path}/{no}_scans.csv", index=False)
 
 

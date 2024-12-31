@@ -16,8 +16,8 @@ def mdi_compute(input_dir: str, output_path: str):
     }
 
     # Computing MDI
-    lp = 3996.73391
-    rp = 599.51009
+    lp = 599.51009
+    rp = 3996.73391
     i = wave_no["wave_no"]
 
     result_df = pd.DataFrame()
