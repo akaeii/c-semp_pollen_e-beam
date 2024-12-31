@@ -22,7 +22,6 @@ def concatenate(input_path: str, output_path: str):
         scan_no_paths[16][0], delimiter=",", names=["wave_no", "abs"]
     )
     wave_no = sample_df["wave_no"]
-    wave_no = wave_no.sort_values(ascending=True)
     wave_no.to_csv(f"{output_path}/wave_no.csv", index=False)
 
     for no, path_list in scan_no_paths.items():
@@ -43,7 +42,7 @@ def concatenate(input_path: str, output_path: str):
                     left=concatenated_data, right=data, on="wave_no", how="outer"
                 )
 
-        concatenated_data = concatenated_data.sort_values(by="wave_no", ascending=True)
+        concatenated_data = concatenated_data.sort_values(by="wave_no", ascending=False)
         concatenated_data.to_csv(f"{output_path}/{no}_scans.csv", index=False)
 
 
