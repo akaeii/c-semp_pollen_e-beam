@@ -51,7 +51,7 @@ def annotator_full(ax):
 
 
 def annotator_zoom(ax):
-    ax.set(ylim=(0, 0.055))
+    ax.set(ylim=(0, 0.065))
     ax.set(xlim=(1000, 2000))
 
     # amide 1
