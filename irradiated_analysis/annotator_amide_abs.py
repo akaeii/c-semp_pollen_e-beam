@@ -1,8 +1,10 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 
+# source: https://sci-hub.se/https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1745-7270.2007.00320.x
 
-def annotator(ax):
+
+def annotator_full(ax):
     ax.set(ylim=(0, 0.16))
 
     # amide A
@@ -47,7 +49,22 @@ def annotator(ax):
     # ax.axvspan(200, 200, color="#f800a4", alpha=0.3)
     # ax.text(185, 0.075, "Amide VII", rotation=90, fontsize=7)
 
-    # source: https://sci-hub.se/https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1745-7270.2007.00320.x
+
+def annotator_zoom(ax):
+    ax.set(ylim=(0, 0.055))
+    ax.set(xlim=(1000, 2000))
+
+    # amide 1
+    ax.axvspan(1600, 1690, color="#006d2c", alpha=0.55)
+    ax.text(1618, 0.048, "Amide I", fontsize=10)
+
+    # amide 2
+    ax.axvspan(1480, 1575, color="#31a354", alpha=0.55)
+    ax.text(1497, 0.048, "Amide II", fontsize=10)
+
+    # amide 3
+    ax.axvspan(1229, 1301, color="#74c476", alpha=0.55)
+    ax.text(1231, 0.048, "Amide III", fontsize=10)
 
 
 if __name__ == "__main__":
